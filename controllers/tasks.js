@@ -60,7 +60,10 @@ const updateCheck = async (req, res) => {
 
 const deleteOne = async (req, res) => {
   try {
-    res.status(200).json("asd");
+    const deleteTask = await Task.findByIdAndDelete(req.params.id);
+    if (!deleteTask) throw Error("Gagal menghapus task !");
+
+    res.status(200).json(deleteTask);
   } catch (err) {
     return res.status(400).json(err.message);
   }
